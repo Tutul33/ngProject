@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, from } from 'rxjs';
+import { Observable, from, interval } from 'rxjs';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { map } from 'rxjs/operators';
 @Component({
@@ -14,10 +14,10 @@ export class CounterOutputComponent implements OnInit {
 
   }
   ngOnInit():void{
-this.loadData();
+     this.loadData();
   }
-  loadData(){    
-    const prices=from([{name:'tutul 1',price:10}, {name:'tutul 2',price:20}, {name:'tutul 3',price:30}]);
+  loadData():void{    
+  const prices=from([{name:'tutul 1',price:10}, {name:'tutul 2',price:20}, {name:'tutul 3',price:30}]);
   const productsWithPrice=prices.pipe(
     map(
       (price, index) => ({
@@ -26,12 +26,11 @@ this.loadData();
                        })
        )
    );
-   console.log(productsWithPrice)
+   //console.log(productsWithPrice)
   productsWithPrice.subscribe(result => console.log(result));
-/* output:
- { name: `product #1`, price: 10 },
- { name: `product #2`, price: 20 },
- { name: `product #3`, price: 30 }
-*/
+
+  const numbers = interval(1000);
+
+  numbers.subscribe(value => console.log("Subscriber: " + value));
   }
 }
